@@ -1,7 +1,12 @@
 #!/bin/bash
 
-# Wipe the files
-> .git/hooks/pre-commit
-echo "echo water2" >> .git/hooks/pre-commit
+echo `git remote -v`
 
-chmod +x .git/hooks/pre-commit
+# Wipe the files
+> .git/hooks/pre-push
+cat > .git/hooks/pre-push <<'endmsg'
+remote="$1"
+echo $remote
+endmsg
+
+chmod +x .git/hooks/pre-push
