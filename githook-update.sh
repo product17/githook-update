@@ -45,13 +45,10 @@ else
 fi
 
 # Wipe the hook files
-# > .git/hooks/pre-push.d
-if [ ! -d ".git/hooks/pre-push.d" ]; then
-  mkdir .git/hooks/pre-push.d
-fi
+> .git/hooks/pre-push
 
 # Write the pre-push hook
-cat > .git/hooks/pre-push.d/drupal <<'endmsg'
+cat > .git/hooks/pre-push <<'endmsg'
 remote="$1"
 url="$2"
 echo "$1  $2"
@@ -64,4 +61,4 @@ echo $remote
 endmsg
 
 # Make all the files executable
-chmod +x .git/hooks/pre-push.d/drupal
+chmod +x .git/hooks/pre-push
