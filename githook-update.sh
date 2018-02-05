@@ -45,17 +45,23 @@ else
 fi
 
 # Wipe the hook files
-> .git/hooks/pre-push
+# > .git/hooks/pre-push.d
+if [ ! -d ".git/hooks/pre-push.d" ]; then
+  mkdir .git/hooks/pre-push.d
+fi
 
 # Write the pre-push hook
-cat > .git/hooks/pre-push <<'endmsg'
+cat > .git/hooks/pre-push.d/drupal <<'endmsg'
 remote="$1"
+url="$2"
+echo "$1  $2"
 if [[ "$remote" != "github" ]]; then
-  echo -e "\n\n\033[1;31m[WARNING] Please push to the github remote on your feature branch\033[0m\n\n"
+  echo "\n\n\033[1;31m[WARNING] Please push to the \033[1;36mgithub\033[1;31m remote on your feature branch\033[0m\n\n"
+  echo "[Example]: \033[1;36mgit push github <branch_name>\033[1;31m"
   exit 1;
 fi
 echo $remote
 endmsg
 
 # Make all the files executable
-chmod +x .git/hooks/pre-push
+chmod +x .git/hooks/pre-push.d/drupal
