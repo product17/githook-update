@@ -46,6 +46,7 @@ fi
 
 # Wipe the hook files
 > .git/hooks/pre-push
+> .git/hooks/pre-commit
 
 # Write the pre-push hook
 cat > .git/hooks/pre-push <<'endmsg'
@@ -64,8 +65,15 @@ if [[ "$local_ref" == *"master" ]]; then
   echo "\033[1;32m[Example]:\033[0m \033[1;36mgit push github cool_idea\033[1;31m\n"
   exit 1;
 fi
-echo $remote
+endmsg
+
+# Write the pre-commit hook
+cat > .git/hooks/pre-commit <<'endmsg'
+remote="$1"
+url="$2"
+echo "$1  $2"
 endmsg
 
 # Make all the files executable
 chmod +x .git/hooks/pre-push
+chmod +x .git/hooks/pre-commit
