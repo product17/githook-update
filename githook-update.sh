@@ -69,6 +69,7 @@ endmsg
 
 # Write the pre-commit hook
 cat > .git/hooks/pre-commit <<'endmsg'
+echo "test"
 branch=$(git rev-parse --symbolic --abbrev-ref $1)
 echo "$branch"
 endmsg
