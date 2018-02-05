@@ -71,7 +71,7 @@ endmsg
 cat > .git/hooks/pre-commit <<'endmsg'
 echo "test"
 branch=$(git rev-parse --symbolic --abbrev-ref $1)
-echo "$branch"
+echo "$branch now"
 endmsg
 
 # Make all the files executable
