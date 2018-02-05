@@ -69,9 +69,8 @@ endmsg
 
 # Write the pre-commit hook
 cat > .git/hooks/pre-commit <<'endmsg'
-remote="$1"
-url="$2"
-echo "$1  $2"
+branch=$(git rev-parse --symbolic --abbrev-ref $1)
+echo "$branch"
 endmsg
 
 # Make all the files executable
