@@ -50,6 +50,10 @@ fi
 # Write the pre-push hook
 cat > .git/hooks/pre-push <<'endmsg'
 remote="$1"
+if [[ "$remote" != "github" ]]; then
+  echo -e "\n\n\033[1;31m[WARNING] Please push to the github remote on your feature branch\033[0m\n\n"
+  exit 0;
+fi
 echo $remote
 endmsg
 
