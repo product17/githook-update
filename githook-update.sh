@@ -51,10 +51,17 @@ fi
 cat > .git/hooks/pre-push <<'endmsg'
 remote="$1"
 url="$2"
-echo "$1  $2"
+read local_ref local_sha remote_ref remote_sha
+
 if [[ "$remote" != "github" ]]; then
-  echo "\n\n\033[1;31m[WARNING] Please push to the \033[1;36mgithub\033[1;31m remote on your feature branch\033[0m\n\n"
-  echo "[Example]: \033[1;36mgit push github <branch_name>\033[1;31m"
+  echo "\n\n\033[1;31m[WARNING] Please push to the \033[1;36mgithub\033[1;31m remote on your feature branch\033[0m\n"
+  echo "[Example]: \033[1;36mgit push github <branch_name>\033[1;31m\n"
+  exit 1;
+fi
+
+if [[ "$local_ref" == *"master" ]]; then
+  echo "\n\n\033[1;31m[WARNING] You are pushing to the \033[1;36mmaster\033[1;31m branch, please use a feature branch\033[0m\n"
+  echo "[Example]: \033[1;36mgit push github cool_idea\033[1;31m\n"
   exit 1;
 fi
 echo $remote
